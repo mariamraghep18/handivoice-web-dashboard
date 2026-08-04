@@ -767,47 +767,36 @@ body {
     grid-template-columns: 1fr;
   }
 }
-
-/* التجاوب الإضافي للهواتف الذكية */
+/* --- إصلاح مشكلة البكسلة وتداخل العناصر على الهواتف --- */
 @media screen and (max-width: 768px) {
-  .container, .main-content, .dashboard-container {
+  /* منع أي تمدد غير محسوب للحاويات الرئيسية */
+  .page-container, .dashboard-grid {
       width: 100% !important;
       padding: 10px !important;
-      margin: 0 !important;
+      margin: 0 auto !important;
+      box-sizing: border-box;
   }
 
-  .sidebar {
+  /* تحسين عرض الكروت لتتلاءم مع عرض الشاشة بدقة دون كسر التصميم */
+  .cyber-card {
       width: 100% !important;
-      height: auto !important;
-      position: relative !important;
+      margin-bottom: 15px;
   }
 
-  h1 {
-      font-size: 24px !important;
-  }
-  
-  h2 {
-      font-size: 20px !important;
+  /* ضبط الخلفية الشبكية لكي لا تتسبب في اهتزاز أو بكسلة عند الفتح */
+  .cyber-grid-bg {
+      background-size: 20px 20px; /* تقليص حجم الشبكة لتناسب الشاشات الصغيرة بدقة */
   }
 
-  p, span, a {
-      font-size: 14px !important;
-  }
+  /* منع تكبير الخطوط بشكل مبالغ فيه قد يكسر التنسيق */
+  h1 { font-size: 22px !important; }
+  h2 { font-size: 18px !important; }
 
+  /* السماح للجداول والتفاف العناصر بالعمل بسلاسة */
   table {
       display: block;
       width: 100%;
       overflow-x: auto;
-      white-space: nowrap;
-  }
-
-  .row, .flex-container, .grid-container {
-      flex-direction: column !important;
-      display: flex !important;
-  }
-
-  button, .btn {
-      width: 100% !important;
-      margin-bottom: 10px !important;
   }
 }
+
