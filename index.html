@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">HandiVoice PRO | تسجيل الدخول</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Changa:wght@400;600;700;800&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-body">
+
+  <div class="cyber-grid-bg"></div>
+
+  <div class="login-container">
+    <div class="cyber-card login-card">
+      <div class="brand-center" style="text-align: center; margin-bottom: 25px;">
+        <div class="logo-icon" style="font-size: 40px; margin-bottom: 10px;"><i class="fa-solid fa-hand-sparkles"></i></div>
+        <h1 class="brand-title" style="font-size: 24px;">HANDI<span>VOICE</span> PRO</h1>
+        <p class="brand-sub" id="formSubTitle">EDGE AI • SECURE LOGIN</p>
+      </div>
+
+      <form id="authForm" onsubmit="handleAuth(event)" class="contact-form">
+        
+        <!-- حقل الاسم يظهر فقط في حالة التسجيل الجديد -->
+        <div class="input-group" id="nameGroup" style="display: none;">
+          <label for="fullname">الاسم الكامل</label>
+          <input type="text" id="fullname" placeholder="أدخل اسمك الكامل">
+        </div>
+
+        <div class="input-group">
+          <label for="username">اسم المستخدم أو البريد</label>
+          <input type="text" id="username" placeholder="أدخل اسم المستخدم" required>
+        </div>
+
+        <div class="input-group">
+          <label for="password">كلمة المرور</label>
+          <input type="password" id="password" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" id="submitBtn" class="cyber-btn primary-glow" style="margin-top: 10px;">
+          <i class="fa-solid fa-right-to-bracket"></i> دخول إلى لوحة التحكم
+        </button>
+      </form>
+
+      <!-- زر التبديل بين الدخول والتسجيل -->
+      <div style="text-align: center; margin-top: 20px;">
+        <p id="toggleText" style="color: #a0aec0; font-size: 14px;">
+          ليس لديك حساب؟ 
+          <a href="#" onclick="toggleMode(event)" id="toggleLink" style="color: #00ff88; text-decoration: none; font-weight: bold;">إنشاء حساب جديد</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let isRegisterMode = false;
+
+    function toggleMode(e) {
+      e.preventDefault();
+      isRegisterMode = !isRegisterMode;
+      
+      const nameGroup = document.getElementById('nameGroup');
+      const formSubTitle = document.getElementById('formSubTitle');
+      const submitBtn = document.getElementById('submitBtn');
+      const toggleText = document.getElementById('toggleText');
+      const pageTitle = document.getElementById('pageTitle');
+
+      if (isRegisterMode) {
+        nameGroup.style.display = 'block';
+        document.getElementById('fullname').setAttribute('required', 'true');
+        formSubTitle.textContent = 'EDGE AI • NEW REGISTRATION';
+        submitBtn.innerHTML = '<i class="fa-solid fa-user-plus"></i> تسجيل حساب جديد والانتقال';
+        toggleText.innerHTML = 'لديك حساب بالفعل؟ <a href="#" onclick="toggleMode(event)" id="toggleLink" style="color: #00ff88; text-decoration: none; font-weight: bold;">تسجيل الدخول</a>';
+        pageTitle.textContent = 'HandiVoice PRO | إنشاء حساب';
+      } else {
+        nameGroup.style.display = 'none';
+        document.getElementById('fullname').removeAttribute('required');
+        formSubTitle.textContent = 'EDGE AI • SECURE LOGIN';
+        submitBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> دخول إلى لوحة التحكم';
+        toggleText.innerHTML = 'ليس لديك حساب؟ <a href="#" onclick="toggleMode(event)" id="toggleLink" style="color: #00ff88; text-decoration: none; font-weight: bold;">إنشاء حساب جديد</a>';
+        pageTitle.textContent = 'HandiVoice PRO | تسجيل الدخول';
+      }
+    }
+
+    function handleAuth(e) {
+      e.preventDefault();
+      // في حال التسجيل أو الدخول، يتم التوجيه مباشرة للوحة التحكم
+      window.location.href = "dashboard.html";
+    }
+  </script>
+</body>
+</html>
