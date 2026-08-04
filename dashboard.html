@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HandiVoice PRO | Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Changa:wght@400;600;700;800&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="cyber-grid-bg"></div>
+
+  <!-- الهيدر الرئيسي -->
+  <header class="dashboard-header">
+    <div class="brand">
+      <div class="logo-icon"><i class="fa-solid fa-hand-sparkles"></i></div>
+      <div>
+        <h1 class="brand-title">HANDI<span>VOICE</span> PRO</h1>
+        <p class="brand-sub">EDGE AI • FLEX SENSOR MATRIX</p>
+      </div>
+    </div>
+    
+    <nav class="main-nav">
+      <a href="dashboard.html" class="nav-btn active"><i class="fa-solid fa-gauge-high"></i> لوحة التحكم</a>
+      <a href="shop.html" class="nav-btn"><i class="fa-solid fa-cart-shopping"></i> المتجر <span id="cartBadge" class="cart-badge">0</span></a>
+      <a href="help.html" class="nav-btn"><i class="fa-solid fa-headset"></i> الدعم والحلول</a>
+      <a href="contact.html" class="nav-btn"><i class="fa-solid fa-envelope"></i> تواصل معنا</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-label="فتح القائمة" aria-controls="mainNav" aria-expanded="false">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </header>
+
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- شبكة لوحة التحكم -->
+  <main class="dashboard-grid">
+
+    <!-- 1. كارت قراءات الحساسات -->
+    <div class="cyber-card chart-card">
+      <div class="card-header">
+        <h3><i class="fa-solid fa-chart-bar glow-icon"></i> حالة حساسات الانثناء (Flex Telemetry)</h3>
+        <span class="tech-tag">CHANNELS 1-5</span>
+      </div>
+      <div class="sensor-bars-container">
+        <div class="sensor-row">
+          <span class="sensor-label">1. الإبهام</span>
+          <div class="progress-bg"><div id="bar-0" class="progress-fill" style="width: 30%;"></div></div>
+          <span id="val-0" class="sensor-val">30°</span>
+        </div>
+        <div class="sensor-row">
+          <span class="sensor-label">2. السبابة</span>
+          <div class="progress-bg"><div id="bar-1" class="progress-fill" style="width: 80%;"></div></div>
+          <span id="val-1" class="sensor-val">80°</span>
+        </div>
+        <div class="sensor-row">
+          <span class="sensor-label">3. الوسطى</span>
+          <div class="progress-bg"><div id="bar-2" class="progress-fill" style="width: 110%;"></div></div>
+          <span id="val-2" class="sensor-val">110°</span>
+        </div>
+        <div class="sensor-row">
+          <span class="sensor-label">4. البنصر</span>
+          <div class="progress-bg"><div id="bar-3" class="progress-fill" style="width: 25%;"></div></div>
+          <span id="val-3" class="sensor-val">25°</span>
+        </div>
+        <div class="sensor-row">
+          <span class="sensor-label">5. الخنصر</span>
+          <div class="progress-bg"><div id="bar-4" class="progress-fill" style="width: 15%;"></div></div>
+          <span id="val-4" class="sensor-val">15°</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. كارت حالة أصابع اليد -->
+    <div class="cyber-card canvas-card">
+      <div class="card-header">
+        <h3><i class="fa-solid fa-hand-back-fist glow-icon"></i> حالة أصابع القفاز (Glove Status)</h3>
+        <span class="live-tag">LIVE UI</span>
+      </div>
+      <div class="hand-widget">
+        <div class="finger-box" id="fbox-0">
+          <i class="fa-solid fa-thumbs-up"></i>
+          <span>الإبهام</span>
+          <small id="ftxt-0">مفرود</small>
+        </div>
+        <div class="finger-box active" id="fbox-1">
+          <i class="fa-solid fa-hand-pointer"></i>
+          <span>السبابة</span>
+          <small id="ftxt-1">مثني</small>
+        </div>
+        <div class="finger-box active" id="fbox-2">
+          <i class="fa-solid fa-hand-middle-finger"></i>
+          <span>الوسطى</span>
+          <small id="ftxt-2">مثني</small>
+        </div>
+        <div class="finger-box" id="fbox-3">
+          <i class="fa-solid fa-hand"></i>
+          <span>البنصر</span>
+          <small id="ftxt-3">مفرود</small>
+        </div>
+        <div class="finger-box" id="fbox-4">
+          <i class="fa-solid fa-hand-sparkles"></i>
+          <span>الخنصر</span>
+          <small id="ftxt-4">مفرود</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. شاشة الترجمة الصوتية -->
+    <div class="cyber-card translation-card">
+      <div class="card-header">
+        <h3><i class="fa-solid fa-language glow-icon"></i> الترجمة الفورية الصوتية</h3>
+        <span class="tech-tag">NEURAL NLP</span>
+      </div>
+      <div class="translation-screen">
+        <div class="scanline"></div>
+        <div id="translatedText" class="translated-output">في انتظار الإشارة...</div>
+        <div class="audio-wave" id="audioWave">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="phrase-picker">
+        <select id="phraseSelect" class="cyber-select form-select">
+          <option value="0">مرحباً بك</option>
+          <option value="1">شكراً جزيلاً</option>
+          <option value="2">أنا بخير</option>
+          <option value="3">من فضلك</option>
+          <option value="4">نعم، موافق</option>
+          <option value="5">أحتاج مساعدة</option>
+          <option value="6">إلى اللقاء</option>
+        </select>
+        <button id="translateBtn" class="cyber-btn primary-glow">
+          <i class="fa-solid fa-hand-sparkles"></i> ترجم الإشارة
+        </button>
+      </div>
+      <div class="translation-controls">
+        <button id="speakBtn" class="cyber-btn secondary">
+          <i class="fa-solid fa-volume-high"></i> إعادة النطق
+        </button>
+        <span class="latency-info">Web Speech Engine</span>
+      </div>
+    </div>
+
+    <!-- 4. الاتصال والإحصائيات -->
+    <div class="cyber-card control-card">
+      <div class="card-header">
+        <h3><i class="fa-brands fa-bluetooth-b glow-icon"></i> الاتصال والإحصائيات</h3>
+        <select id="langSelect" class="cyber-select">
+          <option value="ar-SA">العربية (Saudi Arabia)</option>
+          <option value="en-US">English (US)</option>
+        </select>
+      </div>
+      
+      <button id="connectBtn" class="cyber-btn primary-glow">
+        <i class="fa-solid fa-signal"></i> ربط القفاز عبر (Web Bluetooth)
+      </button>
+
+      <div class="stats-box">
+        <div class="stat-item">
+          <div class="stat-value" id="transCount">١٤</div>
+          <div class="stat-label">جملة مترجمة</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">٤٥</div>
+          <div class="stat-label">كلمة/دقيقة</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" style="color: #00ff88;">38°C</div>
+          <div class="stat-label">حرارة المعالج</div>
+        </div>
+      </div>
+
+      <div class="history-container">
+        <ul id="historyUl" class="history-list">
+          <li>
+            <span class="time">12:00</span>
+            <span class="text">النظام جاهز للربط...</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- المساعد الذكي العائم -->
+  <div class="ai-widget-btn" onclick="toggleAIChat()">
+    <i class="fa-solid fa-robot"></i>
+  </div>
+
+  <div class="ai-chat-popup" id="aiPopup">
+    <div class="chat-popup-header">
+      <span><i class="fa-solid fa-robot"></i> مساعد HandiAI الذكي</span>
+      <button onclick="toggleAIChat()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">
+        <i class="fa-solid fa-robot bot-icon"></i>
+        <div class="msg-bubble">أهلاً بك! أنا مساعد HandiAI. كيف يمكنني مساعدتك اليوم في مشروع HandiVoice PRO؟</div>
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chatInput" placeholder="اسأل عن القفاز، الربط، أو الشراء..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+      <button class="cyber-btn primary-glow" onclick="sendChatMessage()" style="width: auto; margin: 0;">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

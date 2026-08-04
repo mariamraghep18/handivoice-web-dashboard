@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HandiVoice PRO | الدعم والحلول</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Changa:wght@400;600;700;800&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="cyber-grid-bg"></div>
+
+  <!-- الهيدر الرئيسي -->
+  <header class="dashboard-header">
+    <div class="brand">
+      <div class="logo-icon"><i class="fa-solid fa-hand-sparkles"></i></div>
+      <div>
+        <h1 class="brand-title">HANDI<span>VOICE</span> PRO</h1>
+        <p class="brand-sub">EDGE AI • SUPPORT</p>
+      </div>
+    </div>
+    
+    <nav class="main-nav">
+      <a href="dashboard.html" class="nav-btn"><i class="fa-solid fa-gauge-high"></i> لوحة التحكم</a>
+      <a href="shop.html" class="nav-btn"><i class="fa-solid fa-cart-shopping"></i> المتجر</a>
+      <a href="help.html" class="nav-btn active"><i class="fa-solid fa-headset"></i> الدعم والحلول</a>
+      <a href="contact.html" class="nav-btn"><i class="fa-solid fa-envelope"></i> تواصل معنا</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-label="فتح القائمة" aria-controls="mainNav" aria-expanded="false">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </header>
+
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- محتوى الصفحة -->
+  <main class="page-container">
+    <div class="section-title">
+      <h2><i class="fa-solid fa-wrench glow-icon"></i> مركز الدعم الفني وتصحيح الأعطال</h2>
+      <p>تشخيص سريع وإرشادات لحل أي مشكلة قد تواجهك أثناء الاستخدام</p>
+    </div>
+
+    <div class="help-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="helpSearch" placeholder="ابحث في الأعطال أو الأسئلة الشائعة...">
+    </div>
+    <p class="no-results-msg" id="noResultsMsg">لا توجد نتائج مطابقة لبحثك.</p>
+
+    <div class="help-grid">
+      <!-- كارت تشخيص الأعطال -->
+      <div class="cyber-card help-card">
+        <h3><i class="fa-solid fa-stethoscope glow-icon"></i> المساعد الفوري للأعطال</h3>
+        <div class="troubleshoot-list">
+          <div class="ts-item">
+            <h4><i class="fa-solid fa-triangle-exclamation warning-icon"></i> القفاز لا يتصل بالبلوتوث؟</h4>
+            <p>تأكد من تشغيل البلوتوث بالهاتف/الكمبيوتر، واضغط مطولاً على زر التشغيل بالقفاز حتى يضيء باللون الأزرق.</p>
+          </div>
+          <div class="ts-item">
+            <h4><i class="fa-solid fa-triangle-exclamation warning-icon"></i> قراءات غير دقيقة للأصابع؟</h4>
+            <p>قم بعمل إعادة معايرة (Re-calibration) من خلال الضغط على زر إعادة الضبط أسفل وحدة المعالج.</p>
+          </div>
+          <div class="ts-item">
+            <h4><i class="fa-solid fa-triangle-exclamation warning-icon"></i> الصوت لا ينطق التراجم؟</h4>
+            <p>تأكد من السماح بالصوت في المتصفح ومن اختيار اللغة الصحيحة من القائمة العلوية.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- كارت الأسئلة الشائعة -->
+      <div class="cyber-card help-card">
+        <h3><i class="fa-solid fa-circle-question glow-icon"></i> الأسئلة الشائعة (FAQ)</h3>
+        <div class="faq-container">
+          <details class="faq-item">
+            <summary><i class="fa-solid fa-chevron-left arrow-icon"></i> كم تستغرق بطارية القفاز عند الشحن الكامل؟</summary>
+            <p>تستغرق ساعة واحدة للشحن الكامل وتكفي للاستخدام المتواصل حتى 12-18 ساعة.</p>
+          </details>
+          <details class="faq-item">
+            <summary><i class="fa-solid fa-chevron-left arrow-icon"></i> هل يحتاج القفاز للاتصال بالإنترنت؟</summary>
+            <p>يمكن معالجة الإشارات أوفلاين، لكن النطق الصوتي المتقدم يستحسن وجود اتصال بالشبكة.</p>
+          </details>
+          <details class="faq-item">
+            <summary><i class="fa-solid fa-chevron-left arrow-icon"></i> هل يدعم القفاز لغات أخرى؟</summary>
+            <p>نعم، يدعم العربية والإنجليزية بجميع اللهجات المتوفرة بنظام Web Speech.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- المساعد الذكي العائم -->
+  <div class="ai-widget-btn" onclick="toggleAIChat()">
+    <i class="fa-solid fa-robot"></i>
+  </div>
+
+  <div class="ai-chat-popup" id="aiPopup">
+    <div class="chat-popup-header">
+      <span><i class="fa-solid fa-robot"></i> مساعد HandiAI الذكي</span>
+      <button onclick="toggleAIChat()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">
+        <i class="fa-solid fa-robot bot-icon"></i>
+        <div class="msg-bubble">أهلاً بك! كيف يمكنني مساعدتك في حل المشاكل الفنية اليوم؟</div>
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chatInput" placeholder="اسأل عن أي مشكلة فنية..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+      <button class="cyber-btn primary-glow" onclick="sendChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

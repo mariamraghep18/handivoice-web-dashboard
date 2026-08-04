@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HandiVoice PRO | تواصل معنا</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Changa:wght@400;600;700;800&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="cyber-grid-bg"></div>
+
+  <!-- الهيدر الرئيسي -->
+  <header class="dashboard-header">
+    <div class="brand">
+      <div class="logo-icon"><i class="fa-solid fa-hand-sparkles"></i></div>
+      <div>
+        <h1 class="brand-title">HANDI<span>VOICE</span> PRO</h1>
+        <p class="brand-sub">EDGE AI • CONTACT</p>
+      </div>
+    </div>
+    
+    <nav class="main-nav">
+      <a href="dashboard.html" class="nav-btn"><i class="fa-solid fa-gauge-high"></i> لوحة التحكم</a>
+      <a href="shop.html" class="nav-btn"><i class="fa-solid fa-cart-shopping"></i> المتجر</a>
+      <a href="help.html" class="nav-btn"><i class="fa-solid fa-headset"></i> الدعم والحلول</a>
+      <a href="contact.html" class="nav-btn active"><i class="fa-solid fa-envelope"></i> تواصل معنا</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-label="فتح القائمة" aria-controls="mainNav" aria-expanded="false">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </header>
+
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- محتوى الصفحة -->
+  <main class="page-container">
+    <div class="section-title">
+      <h2><i class="fa-solid fa-paper-plane glow-icon"></i> تواصل مع فريق HandiVoice</h2>
+      <p>يسعدنا استقبال استفساراتكم واقتراحاتكم في أي وقت</p>
+    </div>
+
+    <div class="contact-grid">
+      <!-- كارت نموذج التواصل -->
+      <div class="cyber-card contact-form-card">
+        <h3><i class="fa-solid fa-pen-to-square glow-icon"></i> أرسل لنا رسالة</h3>
+        <form class="contact-form" id="contactForm">
+          <div class="input-group">
+            <label for="contactName">الاسم الكامل</label>
+            <input type="text" id="contactName" placeholder="أدخل اسمك" required>
+          </div>
+          <div class="input-group">
+            <label for="contactEmail">البريد الإلكتروني</label>
+            <input type="email" id="contactEmail" placeholder="example@domain.com" required>
+          </div>
+          <div class="input-group">
+            <label for="contactType">نوع الاستفسار</label>
+            <select id="contactType" class="cyber-select form-select">
+              <option>دعم فني</option>
+              <option>استفسار عن المتجر والمبيعات</option>
+              <option>طلب تعاون أو تبرع</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="contactMessage">الرسالة</label>
+            <textarea id="contactMessage" rows="4" maxlength="500" placeholder="اكتب رسالتك هنا..." required></textarea>
+            <span class="field-hint" id="msgCounter">0 / 500</span>
+          </div>
+          <button type="submit" class="cyber-btn primary-glow">
+            <i class="fa-solid fa-paper-plane"></i> إرسال الرسالة
+          </button>
+        </form>
+      </div>
+
+      <!-- كارت معلومات الاتصال -->
+      <div class="cyber-card contact-info-card">
+        <h3><i class="fa-solid fa-address-card glow-icon"></i> معلومات الاتصال المباشر</h3>
+        
+        <div class="info-items">
+          <div class="info-item">
+            <i class="fa-solid fa-envelope"></i> 
+            <span>support@handivoice.pro</span>
+          </div>
+          <div class="info-item">
+            <i class="fa-solid fa-phone"></i> 
+            <span dir="ltr">+20 11 017 1128</span>
+          </div>
+          <div class="info-item">
+            <i class="fa-solid fa-location-dot"></i> 
+            <span>مدينة زويل - مصر - معامل الابتكار</span>
+          </div>
+        </div>
+
+        <hr class="card-divider">
+
+        <div class="social-section">
+          <h4>تابعنا على المنصات</h4>
+          <div class="social-links">
+            <a href="https://github.com/mariamraghep18" class="social-btn"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/mariam-ragheb-a71765386?utm_source=share_via&utm_content=profile&utm_medium=member_android" class="social-btn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://www.facebook.com/recover/code/?ph%5B0%5D=%2B201101701128&rm=send_whatsapp&spc=0&cuid=AYge6Z5BNzTepHC-DD44IWn-kVECHD1QTrEIwSoSshZOOCFP0jVt86mpQIqKMCnMR4Iwn6UeKHeP72lfLWztVG3q0hnvXPLMPOz7fO6IxosDdKkcq3iFgatXMPloq_PeMbMNGgsI_AfkGxKcyu7gnQYBOfpGdZtPsfmyQXZQtZpVLspV7Lmdp71cdQf9R31iOu479RUZCOANZbFYJHNmQN2gQXSMu5gIJm6xwndLEcO9vA&fl=default_recover&wsr=0" class="social-btn"><i class="fa-brands fa-facebook"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- المساعد الذكي العائم -->
+  <div class="ai-widget-btn" onclick="toggleAIChat()">
+    <i class="fa-solid fa-robot"></i>
+  </div>
+
+  <div class="ai-chat-popup" id="aiPopup">
+    <div class="chat-popup-header">
+      <span><i class="fa-solid fa-robot"></i> مساعد HandiAI الذكي</span>
+      <button onclick="toggleAIChat()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">
+        <i class="fa-solid fa-robot bot-icon"></i>
+        <div class="msg-bubble">أهلاً بك! كيف يمكنني مساعدتك في التواصل مع الفريق؟</div>
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chatInput" placeholder="اكتب سؤالك هنا..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+      <button class="cyber-btn primary-glow" onclick="sendChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

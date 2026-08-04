@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HandiVoice PRO | المتجر وسلة الشراء</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Changa:wght@400;600;700;800&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="cyber-grid-bg"></div>
+
+  <header class="dashboard-header">
+    <div class="brand">
+      <div class="logo-icon"><i class="fa-solid fa-hand-sparkles"></i></div>
+      <div>
+        <h1 class="brand-title">HANDI<span>VOICE</span> PRO</h1>
+        <p class="brand-sub">EDGE AI • STORE</p>
+      </div>
+    </div>
+    
+    <nav class="main-nav">
+      <a href="dashboard.html" class="nav-btn"><i class="fa-solid fa-gauge-high"></i> لوحة التحكم</a>
+      <a href="shop.html" class="nav-btn active"><i class="fa-solid fa-cart-shopping"></i> المتجر <span id="cartBadge" class="cart-badge">0</span></a>
+      <a href="help.html" class="nav-btn"><i class="fa-solid fa-headset"></i> الدعم والحلول</a>
+      <a href="contact.html" class="nav-btn"><i class="fa-solid fa-envelope"></i> تواصل معنا</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-label="فتح القائمة" aria-controls="mainNav" aria-expanded="false">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </header>
+
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <main style="padding: 20px; max-width: 1200px; margin: 0 auto;">
+    <div class="section-title" style="text-align: center; margin-bottom: 25px;">
+      <h2><i class="fa-solid fa-bag-shopping" style="color: var(--primary-cyan);"></i> متجر HandiVoice PRO</h2>
+      <p style="color: var(--text-muted);">اختر المنتجات وأضفها للسلة لإتمام طلب الشراء</p>
+    </div>
+
+    <!-- المنتجات -->
+    <div class="shop-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+      
+      <div class="cyber-card shop-card" style="text-align: center; position: relative;">
+        <div class="product-badge" style="position: absolute; top: 10px; right: 10px; background: var(--neon-purple); padding: 2px 8px; border-radius: 4px; font-size: 10px;">الأكثر مبيعاً</div>
+        <div class="product-icon" style="font-size: 40px; color: var(--primary-cyan); margin: 15px 0;"><i class="fa-solid fa-handshake-simple"></i></div>
+        <h3>HandiVoice Kit - PRO</h3>
+        <p class="product-desc" style="color: var(--text-muted); font-size: 12px; margin: 10px 0;">القفاز الذكي الكامل مزود بـ 5 حساسات انثناء ووحدة ذكاء اصطناعي.</p>
+        <div class="product-price" style="font-size: 20px; font-weight: bold; color: #00ff88; margin-bottom: 15px;">2499 EGP</div>
+        <button class="cyber-btn primary-glow" onclick="addToCart('HandiVoice Kit - PRO', 2499)"><i class="fa-solid fa-cart-plus"></i> إضافة للسلة</button>
+      </div>
+
+      <div class="cyber-card shop-card" style="text-align: center;">
+        <div class="product-icon" style="font-size: 40px; color: var(--primary-cyan); margin: 15px 0;"><i class="fa-solid fa-microchip"></i></div>
+        <h3>مجموعة الحساسات البديلة</h3>
+        <p class="product-desc" style="color: var(--text-muted); font-size: 12px; margin: 10px 0;">طقم يحتوي على 5 حساسات انثناء عالية الدقة سهلة الاستبدال.</p>
+        <div class="product-price" style="font-size: 20px; font-weight: bold; color: #00ff88; margin-bottom: 15px;">450 EGP</div>
+        <button class="cyber-btn secondary" onclick="addToCart('حساسات انثناء بديلة', 450)"><i class="fa-solid fa-cart-plus"></i> إضافة للسلة</button>
+      </div>
+
+      <div class="cyber-card shop-card" style="text-align: center;">
+        <div class="product-icon" style="font-size: 40px; color: var(--primary-cyan); margin: 15px 0;"><i class="fa-solid fa-battery-full"></i></div>
+        <h3>بطارية وشاحن سريع</h3>
+        <p class="product-desc" style="color: var(--text-muted); font-size: 12px; margin: 10px 0;">بطارية Li-Po تدوم 18 ساعة مع شاحن Type-C سريع.</p>
+        <div class="product-price" style="font-size: 20px; font-weight: bold; color: #00ff88; margin-bottom: 15px;">320 EGP</div>
+        <button class="cyber-btn secondary" onclick="addToCart('بطارية وشاحن سريع', 320)"><i class="fa-solid fa-cart-plus"></i> إضافة للسلة</button>
+      </div>
+
+    </div>
+
+    <!-- سلة المشتريات واستمارة الشحن -->
+    <div style="margin-top: 30px;" class="cyber-card">
+      <div class="card-header">
+        <h3><i class="fa-solid fa-cart-shopping glow-icon"></i> سلة المشتريات ومعلومات الشحن</h3>
+      </div>
+      <div class="cart-container" style="margin-top: 15px;">
+        <ul id="cartItemsList" class="cart-items-list">
+          <li class="empty-msg">السلة فارغة حالياً.. قم بإضافة منتجات من الأعلى.</li>
+        </ul>
+        <div class="cart-summary">
+          <span>الإجمالي:</span>
+          <strong id="cartTotal">0 EGP</strong>
+        </div>
+      </div>
+
+      <form id="checkoutForm" style="margin-top: 20px;" onsubmit="handleCheckout(event)">
+        <h4 style="color: var(--primary-cyan); margin-bottom: 10px;">بيانات المشتري والتوصيل:</h4>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 10px;">
+          <div>
+            <label style="font-size: 12px; color: var(--text-muted);">الاسم بالكامل</label>
+            <input type="text" id="custName" required placeholder="مثال: أحمد محمد" style="width: 100%; background: #02040a; border: 1px solid var(--border-glow); padding: 8px; color: #fff; border-radius: 4px; font-family: inherit;">
+          </div>
+          <div>
+            <label style="font-size: 12px; color: var(--text-muted);">رقم الهاتف</label>
+            <input type="tel" id="custPhone" required placeholder="01000000000" style="width: 100%; background: #02040a; border: 1px solid var(--border-glow); padding: 8px; color: #fff; border-radius: 4px; font-family: inherit;">
+          </div>
+        </div>
+        <div style="margin-bottom: 15px;">
+          <label style="font-size: 12px; color: var(--text-muted);">عنوان التوصيل التفصيلي</label>
+          <input type="text" id="custAddress" required placeholder="المدينة، الشارع، رقم المبنى" style="width: 100%; background: #02040a; border: 1px solid var(--border-glow); padding: 8px; color: #fff; border-radius: 4px; font-family: inherit;">
+        </div>
+        <button type="submit" class="cyber-btn primary-glow"><i class="fa-solid fa-check-circle"></i> تأكيد وإرسال الطلب الآن</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Floating AI Button -->
+  <div class="ai-widget-btn" onclick="toggleAIChat()">
+    <i class="fa-solid fa-robot"></i>
+  </div>
+
+  <!-- Floating AI Window -->
+  <div class="ai-chat-popup" id="aiPopup">
+    <div class="chat-popup-header">
+      <span><i class="fa-solid fa-robot"></i> مساعد HandiAI الذكي</span>
+      <button onclick="toggleAIChat()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">
+        <i class="fa-solid fa-robot bot-icon"></i>
+        <div class="msg-bubble">أهلاً بك! يمكنك الاستفسار عن الأسعار، تفاصيل الطلب، أو طريقة عمل القفاز.</div>
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chatInput" placeholder="اسأل عن الشراء أو المواصفات..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+      <button class="cyber-btn primary-glow" onclick="sendChatMessage()" style="width: auto; margin: 0;"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
