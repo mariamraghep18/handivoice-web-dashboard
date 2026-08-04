@@ -349,14 +349,6 @@ function initDashboardControls() {
   const connectBtn = document.getElementById('connectBtn');
   if (connectBtn) {
     connectBtn.addEventListener('click', () => {
-      // فحص ما إذا كان المستخدم يفتح من الموبايل
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      
-      if (isMobile) {
-        showToast('عذراً، خاصية البلوتوث المباشر لا تعمل من متصفح الموبايل. يُرجى فتح الموقع من اللابتوب للتحكم بالقفاز.', 'error', 5000);
-        return;
-      }
-
       connectBtn.disabled = true;
       connectBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> جاري البحث عن القفاز...`;
       setTimeout(() => {
@@ -369,35 +361,6 @@ function initDashboardControls() {
     });
   }
 
-  // باقي الكود الخاص بالترجمة والأزرار كما هو...
-  const translateBtn = document.getElementById('translateBtn');
-  if (translateBtn) {
-    translateBtn.addEventListener('click', () => {
-      // إذا كان من الموبايل ولم يتصل، نسمح له بتجربة العرض التوضيحي (Simulation) لتظهر الواجهة تعمل معه
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      if (!isGloveConnected && !isMobile) {
-        showToast('اربطي القفاز الأول قبل الترجمة.', 'error');
-        return;
-      }
-      const select = document.getElementById('phraseSelect');
-      const phrase = SIGN_PHRASES[Number(select?.value || 0)];
-      renderSignTranslation(phrase);
-    });
-  }
-
-  const speakBtn = document.getElementById('speakBtn');
-  if (speakBtn) {
-    speakBtn.addEventListener('click', () => {
-      const text = document.getElementById('translatedText')?.innerText;
-      const lang = document.getElementById('langSelect')?.value || 'ar-SA';
-      if (text && text !== 'في انتظار الإشارة...') {
-        speakText(text, lang);
-      } else {
-        showToast('لا توجد ترجمة لإعادة نطقها بعد.', 'error');
-      }
-    });
-  }
-}
   const translateBtn = document.getElementById('translateBtn');
   if (translateBtn) {
     translateBtn.addEventListener('click', () => {
@@ -423,7 +386,7 @@ function initDashboardControls() {
       }
     });
   }
-
+}
 
 /* ==========================================================================
    Init
