@@ -760,3 +760,62 @@ body {
     grid-template-columns: 1fr;
   }
 }
+/* إعدادات عامة لتجنب تجاوز الشاشة أفقياً */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* التجاوب مع الهواتف الذكية (الشاشات التي أقل من 768 بكسل) */
+@media screen and (max-width: 768px) {
+    
+    /* جعل الحاويات تأخذ عرض الشاشة بالكامل مع هوامش بسيطة */
+    .container, .main-content, .dashboard-container {
+        width: 100% !important;
+        padding: 10px !important;
+        margin: 0 !important;
+    }
+
+    /* تحويل القوائم الجانبية (Sidebar) لتظهر بشكل عمودي أو تختفي حسب رغبتك */
+    .sidebar {
+        width: 100% !important;
+        height: auto !important;
+        position: relative !important;
+    }
+
+    /* تصغير احجام الخطوط الكبيرة لتناسب الشاشات الضيقة */
+    h1 {
+        font-size: 24px !important;
+    }
+    
+    h2 {
+        font-size: 20px !important;
+    }
+
+    p, span, a {
+        font-size: 14px !important;
+    }
+
+    /* جعل الجداول قابلة للتمرير أفقياً إذا كانت عريضة */
+    table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    /* ترتيب العناصر المجاورة (Flexbox) لتصبح عمودية تحت بعضها */
+    .row, .flex-container, .grid-container {
+        flex-direction: column !important;
+        display: flex !important;
+    }
+
+    /* تعديل أزرار التحكم لتملأ العرض لسهولة الضغط عليها بالإصبع */
+    button, .btn {
+        width: 100% !important;
+        margin-bottom: 10px !important;
+    }
+}
