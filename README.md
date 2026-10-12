@@ -1,4 +1,4 @@
-#HandiVoice
+# HandiVoice
 
 A Smart Wearable Assistive Communication System Using Gesture Recognition
 
