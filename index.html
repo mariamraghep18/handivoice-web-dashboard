@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>HandiVoice PRO | Edge AI Sign-Language Translation Glove & 3D Simulation Platform</title>
+  
+  <!-- PWA & Mobile App Meta -->
+  <meta name="theme-color" content="#00f0ff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/handiai-avatar.png">
+  <link rel="apple-touch-icon" href="icons/handiai-avatar.png">
+
+  <!-- Modern English & Global Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=Cairo:wght@400;600;700;800&family=Changa:wght@400;600;700;800&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- GSAP for Smooth Futuristic Interactive Animations (Inspired by ArabyBot) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- Three.js for Realistic 3D Hand Model Kinematics -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+  <!-- Cyberpunk Matrix Grid Background Canvas -->
+  <div class="cyber-grid-bg"></div>
+
+  <!-- ArabyBot-Inspired Fluid Glowing Aurora & Dynamic Particle Floating Canvas -->
+  <div class="araby-aurora-bg" aria-hidden="true">
+    <div class="araby-aurora-orb araby-aurora-orb-1"></div>
+    <div class="araby-aurora-orb araby-aurora-orb-2"></div>
+    <div class="araby-aurora-orb araby-aurora-orb-3"></div>
+  </div>
+  <canvas id="arabyParticleCanvas" class="araby-particle-canvas" aria-hidden="true"></canvas>
+
+  <!-- ==========================================================================
+       1. INITIAL LANDING PAGE & INTEGRATED AUTHENTICATION SCREEN
+       First opening entry point with high-end animations and functional Login/Register
+       ========================================================================== -->
+  <div id="landingAuthScreen" class="landing-auth-overlay">
+    <div class="landing-nav">
+      <div class="landing-brand">
+        <div class="logo-badge">
+          <i class="fa-solid fa-hand-sparkles"></i>
+        </div>
+        <div class="brand-text">
+          <h1 class="brand-title">HANDI<span>VOICE</span> <span class="pro-tag">PRO</span></h1>
+        </div>
+      </div>
+      
+      <div class="landing-nav-actions">
+        <!-- Landing Language Switcher -->
+        <button id="landingLangBtn" class="header-btn" title="Change Language">
+          <i class="fa-solid fa-globe"></i>
+          <span id="landingLangLabel">EN</span>
+        </button>
+        <!-- Landing Theme Toggle -->
+        <button id="landingThemeBtn" class="header-btn" title="Toggle Dark/Light Mode">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="landing-content-wrap">
+      <!-- Left Column: Hero Showcase -->
+      <div class="landing-hero-left">
+        <div class="landing-badge">
+          <span class="confidence-dot"></span>
+          <span>EDGE AI • WEARABLE BIONICS • 3D WEBGL KINEMATICS</span>
+        </div>
+        <h2 class="landing-main-title">
+          Bridging Silence & Sound with <span class="gradient-text">Intelligent Hand Robotics</span>
+        </h2>
+        <p class="landing-desc">
+          HandiVoice PRO is a production-grade assistive platform powered by ESP32-S3 SuperMini, 5 flex sensors, and 6-axis IMU telemetry. Seamlessly translating glove gestures into multi-language neural voice and partner speech into 3D articulated sign poses in real-time.
+        </p>
+
+        <!-- Feature Highlight Badges (Interactive 3D Flip Ready) -->
+        <div class="landing-features-grid">
+          <div class="feat-card">
+            <i class="fa-brands fa-bluetooth-b"></i>
+            <div>
+              <strong>ESP32-S3 BLE</strong>
+              <small>50Hz low-latency wireless telemetry</small>
+            </div>
+          </div>
+          <div class="feat-card">
+            <i class="fa-solid fa-cubes"></i>
+            <div>
+              <strong>14-Joint 3D Hand</strong>
+              <small>WebGL Three.js forward kinematics</small>
+            </div>
+          </div>
+          <div class="feat-card">
+            <i class="fa-solid fa-volume-high"></i>
+            <div>
+              <strong>Neural Voice Engine</strong>
+              <small>Strict Female/Male & style acoustic tuning</small>
+            </div>
+          </div>
+          <div class="feat-card">
+            <i class="fa-solid fa-database"></i>
+            <div>
+              <strong>31 CSV Datasets</strong>
+              <small>Real-time Random Forest classification</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Integrated Auth Card (ArabyBot-Inspired Single Animated Input Bar) -->
+      <div class="landing-auth-card araby-auth-card">
+        <div class="auth-card-header">
+          <h3 id="authCardTitle"><i class="fa-solid fa-shield-halved glow-icon"></i> <span>Platform Access</span></h3>
+          <p id="authCardSubtitle" class="auth-card-subtitle">Authenticate to access HandiVoice PRO</p>
+        </div>
+
+        <!-- 1. Sign In Form: ONLY ONE single, clean, animated input bar/container -->
+        <div id="landingLoginView" class="auth-form-box">
+          <form id="landingLoginForm" class="araby-login-form">
+            <div class="araby-unified-input-container">
+              <div class="araby-input-glow-ring"></div>
+              <div class="araby-single-input-bar">
+                <div class="araby-input-icon">
+                  <i class="fa-solid fa-user-astronaut"></i>
+                </div>
+                <input type="email" id="landingLoginEmail" class="araby-single-input" placeholder="Enter email (mariam.raghep@handivoice.ai)" value="mariam.raghep@handivoice.ai" required autocomplete="email">
+                <input type="hidden" id="landingLoginPassword" value="HandiVoice2026!">
+                <button type="submit" id="landingLoginSubmitBtn" class="araby-input-submit-btn" title="Sign In & Enter Dashboard">
+                  <span>Sign In</span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="araby-auth-status-bar">
+              <span class="araby-status-dot"></span>
+              <span>Fast Edge AI Profile: <strong>Mariam Raghep</strong></span>
+            </div>
+          </form>
+
+          <div class="auth-divider">
+            <span>NEW TO HANDIVOICE?</span>
+          </div>
+
+          <button type="button" id="landingGoToRegisterBtn" class="cyber-btn create-account-hero-btn full-w-btn">
+            <i class="fa-solid fa-user-plus"></i>
+            <span>Create Account</span>
+          </button>
+        </div>
+
+        <!-- 2. Register Form -->
+        <div id="landingRegisterView" class="auth-form-box" style="display: none;">
+          <form id="landingRegisterForm">
+            <div class="form-group">
+              <label for="landingRegName">Full Name</label>
+              <input type="text" id="landingRegName" class="form-input" placeholder="Mariam Raghep" required>
+            </div>
+            <div class="form-group">
+              <label for="landingRegEmail">Email Address</label>
+              <input type="email" id="landingRegEmail" class="form-input" placeholder="mariam@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="landingRegPhone">Phone Number</label>
+              <input type="text" id="landingRegPhone" class="form-input" placeholder="+1 (555) 234-5678" required>
+            </div>
+            <div class="form-group">
+              <label for="landingRegId">National ID / Medical ID</label>
+              <input type="text" id="landingRegId" class="form-input" placeholder="29804151234567" required>
+            </div>
+            <div class="form-group">
+              <label for="landingRegPassword">Password</label>
+              <input type="password" id="landingRegPassword" class="form-input" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="cyber-btn primary-glow full-w-btn">
+              <i class="fa-solid fa-user-plus"></i>
+              <span>Create Account & Launch Platform</span>
+            </button>
+          </form>
+
+          <div class="auth-divider">
+            <span>ALREADY HAVE AN ACCOUNT?</span>
+          </div>
+
+          <button type="button" id="landingGoToLoginBtn" class="cyber-btn secondary full-w-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to Sign In</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       2. FLUID & RESPONSIVE APP CONTAINER (#deviceAppShell)
+       Operating in a natural, fluid, and responsive layout across all screens!
+       ========================================================================== -->
+  <div id="deviceAppShell" class="device-app-shell">
+
+    <!-- ==========================================================================
+         TOP HEADER BAR
+         Contains strictly the brand logo + 4 essential interactive controls:
+         A. Sign Language Button
+         B. Language Selector Dropdown (Default: English)
+         C. Background Theme Switch (Dark Mode / Light Mode)
+         D. User Profile Button (Clickable Avatar)
+         ========================================================================== -->
+    <header class="app-header">
+      <div class="brand" onclick="switchView('view-translation')">
+        <div class="logo-badge">
+          <i class="fa-solid fa-hand-sparkles"></i>
+        </div>
+        <div class="brand-text">
+          <h1 class="brand-title">HANDI<span>VOICE</span> <span class="pro-tag">PRO</span></h1>
+        </div>
+      </div>
+
+      <!-- Essential Header Controls (Exactly 4 items) -->
+      <div class="header-actions">
+        <!-- A. Sign Language Button -->
+        <button id="tutorialVideoBtn" class="header-btn" title="Sign Language Guide" aria-label="Sign Language" onclick="openTutorialModal()">
+          <i class="fa-solid fa-hands-asl-interpreting"></i>
+          <span class="btn-text-responsive" data-i18n="header_tutorial_btn">Sign Language</span>
+        </button>
+
+        <!-- B. Language Selector (Default: English) -->
+        <div class="lang-dropdown-wrapper">
+          <button id="langSwitcherBtn" class="header-btn" title="Change Language" aria-label="Change Language">
+            <i class="fa-solid fa-globe"></i>
+            <span id="currentLangLabel">EN</span>
+            <i class="fa-solid fa-chevron-down caret-icon"></i>
+          </button>
+          <div id="langDropdown" class="lang-dropdown">
+            <button class="lang-opt active" data-lang="en">
+              <span class="flag">🇺🇸</span> English (EN)
+            </button>
+            <button class="lang-opt" data-lang="ar">
+              <span class="flag">🇸🇦</span> Arabic (AR)
+            </button>
+            <button class="lang-opt" data-lang="fr">
+              <span class="flag">🇫🇷</span> French (FR)
+            </button>
+            <button class="lang-opt" data-lang="it">
+              <span class="flag">🇮🇹</span> Italian (IT)
+            </button>
+          </div>
+        </div>
+
+        <!-- C. Background Theme Switch -->
+        <button id="themeToggleHeaderBtn" class="header-btn" title="Toggle Dark / Light Theme" aria-label="Toggle Theme">
+          <i class="fa-solid fa-moon" id="headerThemeIcon"></i>
+        </button>
+
+        <!-- D. User Profile Button -->
+        <button id="userProfileBtn" class="header-btn profile-btn" title="User Profile & Settings" aria-label="User Profile" onclick="openProfileModal()">
+          <div class="profile-avatar-thumb">
+            <img src="icons/handiai-avatar.png" alt="User Profile Avatar" class="user-avatar-img">
+            <span class="online-dot"></span>
+          </div>
+          <span id="headerUserName">Mariam</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ==========================================================================
+         MAIN CONTENT & VERTICAL TRANSLATION HUB
+         Fully scrollable with zero clipping on any device!
+         ========================================================================== -->
+    <main class="main-content">
+
+      <!-- ======================================================================
+           VIEW 1: TRANSLATION HUB (VERTICAL STACKED LAYOUT)
+           Top Section: Partner Speech-to-Sign & 3D Hand Model Simulation
+           Bottom Section: Glove Gesture-to-Speech & Text with Isolated Audio Control & Flip Card
+           ====================================================================== -->
+      <section id="view-translation" class="view-section active">
+        <!-- Translation Hub Intro Explanation Banner -->
+        <div class="page-intro-banner">
+          <div class="page-intro-icon">
+            <i class="fa-solid fa-comments"></i>
+          </div>
+          <div class="page-intro-body">
+            <div class="page-intro-header">
+              <h2 data-i18n="page_trans_title">Translation Hub</h2>
+              <span class="page-intro-pill">LIVE CORE</span>
+            </div>
+            <p class="page-intro-desc" data-i18n="page_trans_desc">
+              Two-way real-time communication center: converts partner spoken speech into animated 3D sign language postures, and translates smart glove sign gestures directly into synthesized voice and on-screen text.
+            </p>
+            <div class="page-intro-actions-chips">
+              <span class="action-chip"><i class="fa-solid fa-microphone"></i> <strong data-i18n="chip_partner">Partner Voice:</strong> <span data-i18n="chip_partner_sub">Speech-to-Sign 3D</span></span>
+              <span class="action-chip"><i class="fa-solid fa-hand"></i> <strong data-i18n="chip_glove">Smart Glove:</strong> <span data-i18n="chip_glove_sub">31 Dataset Signs to Speech</span></span>
+              <span class="action-chip"><i class="fa-solid fa-sliders"></i> <strong data-i18n="chip_voice">Voice Engine:</strong> <span data-i18n="chip_voice_sub">6 Audio Profiles</span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="translation-hub-vertical">
+
+          <!-- ------------------------------------------------------------------
+               TOP SECTION: PARTNER SPEECH TO SIGN LANGUAGE & 3D SIMULATION
+               ------------------------------------------------------------------ -->
+          <div class="cyber-card speech-top-section">
+            <div class="card-header">
+              <h3>
+                <i class="fa-solid fa-microphone-lines glow-icon"></i>
+                <span data-i18n="top_sec_title">Top: Partner Speech to Sign Language & 3D Simulation</span>
+              </h3>
+              <span class="tech-tag">WEBGL 3D KINEMATICS</span>
+            </div>
+
+            <p style="font-size: 0.85rem; color: var(--text-secondary);" data-i18n="top_sec_sub">
+              Real-time speech recognition for non-signers • Web Speech API
+            </p>
+
+            <!-- Speech Controls: Partner Spoken Language + Microphone Button -->
+            <div class="speech-controls-row">
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <label for="partnerSpeechLang" style="font-size: 0.82rem; font-weight: 700; color: var(--text-secondary);" data-i18n="partner_lang_label">
+                  Partner Spoken Language:
+                </label>
+                <select id="partnerSpeechLang" class="speech-lang-select">
+                  <option value="en-US">English (US)</option>
+                  <option value="ar-SA">العربية (Saudi Arabia)</option>
+                  <option value="it-IT">Italiano (Italia)</option>
+                  <option value="fr-FR">Français (France)</option>
+                </select>
+              </div>
+
+              <!-- Large Microphone Toggle Button -->
+              <button id="micToggleBtn" class="mic-toggle-btn" aria-label="Toggle Microphone">
+                <i class="fa-solid fa-microphone"></i>
+                <span class="mic-btn-text" data-i18n="mic_idle">Click to Speak (Partner Voice)</span>
+                <div class="speech-wave">
+                  <span></span><span></span><span></span><span></span><span></span>
+                </div>
+              </button>
+            </div>
+
+            <!-- Spoken Audio Transcript Box -->
+            <div class="transcript-card">
+              <div class="transcript-header">
+                <span data-i18n="transcript_label">Real-time Spoken Transcript</span>
+                <i class="fa-solid fa-wave-square" style="color: var(--primary-cyan);"></i>
+              </div>
+              <div id="spokenTranscript" class="transcript-text" data-i18n="transcript_placeholder">
+                Awaiting spoken audio from partner...
+              </div>
+            </div>
+
+            <!-- REALISTIC 3D HAND SIMULATION CANVAS (THREE.JS / WEBGL) -->
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
+                <span style="font-weight: 800; font-size: 0.95rem; color: var(--text-main); display: flex; align-items: center; gap: 8px;">
+                  <i class="fa-solid fa-cubes glow-icon"></i>
+                  <span data-i18n="sign_3d_title">3D Articulated Sign Language Simulation</span>
+                </span>
+                <span class="tech-tag" style="border-color: var(--neon-purple); color: #c084fc;">
+                  THREE.JS • 14 JOINT KINEMATICS
+                </span>
+              </div>
+
+              <div id="hand3dContainer" class="hand-3d-canvas-wrap">
+                <div class="hand-3d-hint">
+                  <i class="fa-solid fa-arrows-up-down-left-right"></i> Drag with mouse/touch to rotate in 3D space
+                </div>
+                <div id="activeSign3DBadge" class="hand-3d-badge-active">
+                  Alif (Letter A - Index Upright)
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Speech Test Prompts -->
+            <div>
+              <span style="font-size: 0.78rem; color: var(--text-secondary); font-weight: 700; display: block; margin-bottom: 6px;" data-i18n="quick_prompts_title">
+                Quick Voice Test Prompts:
+              </span>
+              <div id="quickSpeechPrompts" class="quick-speech-prompts"></div>
+            </div>
+
+          </div>
+
+          <!-- ------------------------------------------------------------------
+               BOTTOM SECTION: GLOVE GESTURE TO SPEECH & TEXT + INTERACTIVE FLIP CARD
+               ------------------------------------------------------------------ -->
+          <div class="cyber-card gesture-bottom-section">
+            <div class="card-header">
+              <h3>
+                <i class="fa-solid fa-hand-back-fist glow-icon"></i>
+                <span data-i18n="bottom_sec_title">Bottom: Glove Gesture to Speech & Text</span>
+              </h3>
+              <span class="tech-tag">NEURAL SYNTHESIS</span>
+            </div>
+
+            <p style="font-size: 0.85rem; color: var(--text-secondary);" data-i18n="bottom_sec_sub">
+              ESP32-S3 real-time telemetry translation & Neural Synthesis
+            </p>
+
+            <!-- 3D INTERACTIVE FLIP CARD FOR GESTURE RESULT & DEEP TELEMETRY -->
+            <div class="flip-card-container" id="gestureFlipCard">
+              <div class="flip-card-inner">
+                <!-- Front Side: Visual Result & Audio Controls -->
+                <div class="flip-card-front gesture-result-card">
+                  <div class="card-flip-header">
+                    <div class="confidence-meter">
+                      <span class="confidence-dot"></span>
+                      <span data-i18n="confidence_label">Edge AI Match:</span>
+                      <span id="gestureConfidenceVal" style="color: #fff;">98.8%</span>
+                    </div>
+                    <button type="button" class="flip-toggle-btn" onclick="toggleCardFlip(this)" title="Flip to Deep AI Telemetry">
+                      <i class="fa-solid fa-arrows-rotate"></i> <span>Telemetry Specs</span>
+                    </button>
+                  </div>
+
+                  <div class="gesture-main-display">
+                    <div id="gestureLargeIcon" class="gesture-icon-large">
+                      أ
+                    </div>
+                    <div class="gesture-text-info">
+                      <div id="gestureSignName" class="gesture-sign-name">
+                        Alif (Letter A - Index Upright)
+                      </div>
+                      <div id="gestureSpokenPhrase" class="gesture-spoken-phrase">
+                        Hello / Peace be upon you
+                      </div>
+                      <div id="gestureSubTranslation" class="gesture-sub-translation">
+                        <i class="fa-solid fa-volume-high"></i> Audio [EN]: Hello / Peace be upon you
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- ISOLATED AUDIO / SPEECH LANGUAGE CONTROL ROW -->
+                  <div class="gesture-speech-control-bar">
+                    <!-- Auto-Speech Output Toggle -->
+                    <label class="auto-speech-toggle-box" title="Automatically speak every detected sign out loud">
+                      <input type="checkbox" id="autoSpeechToggle" checked>
+                      <i class="fa-solid fa-bolt"></i>
+                      <span>Auto-Voice</span>
+                    </label>
+
+                    <!-- Replay Audio Button -->
+                    <button type="button" id="replayAudioBtn" class="cyber-btn primary-glow" title="Replay spoken audio">
+                      <i class="fa-solid fa-volume-high"></i>
+                      <span data-i18n="replay_audio_btn">Replay Audio</span>
+                    </button>
+
+                    <!-- Pause/Resume Audio Button -->
+                    <button type="button" id="pauseAudioBtn" class="cyber-btn secondary" title="Pause or Resume Speech Synthesis">
+                      <i class="fa-solid fa-pause"></i>
+                      <span>Pause</span>
+                    </button>
+
+                    <!-- Mute Audio Button -->
+                    <button type="button" id="muteAudioBtn" class="cyber-btn secondary" title="Mute voice synthesis">
+                      <i class="fa-solid fa-volume-high"></i>
+                      <span id="muteBtnLabel">Sound ON</span>
+                    </button>
+
+                    <!-- ISOLATED AUDIO/SPEECH OUTPUT LANGUAGE DROPDOWN -->
+                    <div class="speech-output-lang-wrap">
+                      <label for="speechOutputLangSelect" data-i18n="speech_output_lang_label">
+                        <i class="fa-solid fa-language"></i> Audio Output Language:
+                      </label>
+                      <select id="speechOutputLangSelect" class="speech-output-lang-select" title="Select Synthesized Speech Language">
+                        <option value="en" selected>🇺🇸 English</option>
+                        <option value="ar">🇸🇦 العربية</option>
+                        <option value="it">🇮🇹 Italiano</option>
+                        <option value="fr">🇫🇷 Français</option>
+                      </select>
+                    </div>
+
+                    <!-- Random Trigger Button -->
+                    <button type="button" id="triggerRandomGestureBtn" class="cyber-btn secondary" title="Trigger Random Test Sign">
+                      <i class="fa-solid fa-shuffle"></i>
+                      <span data-i18n="test_preset_btn">Trigger Random Sign</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Back Side: Deep ML Telemetry Diagnostics -->
+                <div class="flip-card-back gesture-result-back">
+                  <div class="card-flip-header">
+                    <span class="tech-tag" style="border-color: var(--neon-purple); color: #c084fc;">
+                      <i class="fa-solid fa-microchip"></i> INFERENCE TELEMETRY MATRIX
+                    </span>
+                    <button type="button" class="flip-toggle-btn" onclick="toggleCardFlip(this)" title="Flip back to Visual View">
+                      <i class="fa-solid fa-arrows-rotate"></i> <span>Visual View</span>
+                    </button>
+                  </div>
+
+                  <div class="telemetry-deep-grid">
+                    <div class="telemetry-stat-box">
+                      <small>ADC1 5-Channel Flex Matrix (Raw)</small>
+                      <p id="telemetryRawChannels">[T: 1, I: 71, M: 86, R: 171, P: 265]</p>
+                    </div>
+                    <div class="telemetry-stat-box">
+                      <small>MPU6050 Acceleration Vector</small>
+                      <p id="telemetryImuAcc">Ax: 0.66, Ay: 7.71, Az: 5.90 m/s²</p>
+                    </div>
+                    <div class="telemetry-stat-box">
+                      <small>Random Forest Latency</small>
+                      <p style="color: var(--success-green); font-family: 'Orbitron'; font-weight: 700;">&lt; 7.2 ms (Edge Execution)</p>
+                    </div>
+                    <div class="telemetry-stat-box">
+                      <small>Active Gesture Kinematics</small>
+                      <p style="color: var(--primary-cyan); font-weight: 700;">Index 100% Upright • Palm Closed</p>
+                    </div>
+                  </div>
+
+                  <p style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 10px;">
+                    <i class="fa-solid fa-circle-check" style="color: var(--success-green);"></i> Benchmarked on authentic <code>HandiVoiceDataSet</code> records (100 Decision Trees, Gini Criterion).
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Real Dataset Presets (All 31 CSV Signs) -->
+            <div style="margin-top: 20px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
+                <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary);" data-i18n="dataset_presets_title">
+                  Real Dataset Gesture Presets (31 Signs):
+                </span>
+                <span class="tech-tag" style="font-size: 0.65rem;">31 CSV LOGS</span>
+              </div>
+              
+              <div id="datasetTriggerGrid" class="dataset-trigger-grid"></div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           VIEW 2: SMART GLOVE DASHBOARD & ESP32-S3 BLUETOOTH
+           With Flip Cards for Sensors and Motion IMU
+           ====================================================================== -->
+      <section id="view-dashboard" class="view-section">
+        <!-- Glove Dashboard Intro Explanation Banner -->
+        <div class="page-intro-banner">
+          <div class="page-intro-icon">
+            <i class="fa-solid fa-microchip"></i>
+          </div>
+          <div class="page-intro-body">
+            <div class="page-intro-header">
+              <h2 data-i18n="page_dash_title">Glove & Hardware Center</h2>
+              <span class="page-intro-pill">TELEMETRY & I/O</span>
+            </div>
+            <p class="page-intro-desc" data-i18n="page_dash_desc">
+              Comprehensive hardware diagnostics and connectivity suite: manage ESP32-S3 wireless BLE or USB serial links, inspect 5-channel ADC flex sensor bend levels and 6-axis MPU6050 IMU motion kinematics, or run interactive simulations.
+            </p>
+            <div class="page-intro-actions-chips">
+              <span class="action-chip"><i class="fa-brands fa-bluetooth-b"></i> <strong data-i18n="chip_conn">Connectivity:</strong> <span data-i18n="chip_conn_sub">BLE, USB Serial & Python Bridge</span></span>
+              <span class="action-chip"><i class="fa-solid fa-hand-dots"></i> <strong data-i18n="chip_sens">Sensors:</strong> <span data-i18n="chip_sens_sub">ADC1 5-Flex Channels + MPU6050</span></span>
+              <span class="action-chip"><i class="fa-solid fa-sliders"></i> <strong data-i18n="chip_test">Testing:</strong> <span data-i18n="chip_test_sub">Virtual Sliders & CSV Auto-Cycle</span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid-layout">
+
+          <!-- 1. Dedicated Hardware Connection Center -->
+          <div class="cyber-card">
+            <div class="card-header">
+              <h3>
+                <i class="fa-solid fa-microchip glow-icon"></i>
+                <span data-i18n="ble_card_title">ESP32 Hardware Connection Center</span>
+              </h3>
+              <!-- Dynamic Real State Badge -->
+              <div id="hardwareStateBadge" class="hardware-state-badge state-disconnected">
+                <span class="confidence-dot" style="background: var(--danger-red);"></span>
+                <span id="hwStateLabel">DISCONNECTED</span>
+              </div>
+            </div>
+
+            <!-- Connection Modes Tabs -->
+            <div class="connection-modes-tabs">
+              <button type="button" class="conn-mode-btn active" data-mode="bridge" id="modeBridgeBtn">
+                <i class="fa-solid fa-server"></i>
+                <span>Python AI Bridge (WebSocket)</span>
+              </button>
+              <button type="button" class="conn-mode-btn" data-mode="serial" id="modeSerialBtn">
+                <i class="fa-solid fa-cable-car"></i>
+                <span>Direct Web Serial (USB)</span>
+              </button>
+              <button type="button" class="conn-mode-btn" data-mode="ble" id="modeBleBtn">
+                <i class="fa-brands fa-bluetooth-b"></i>
+                <span>Web Bluetooth LE</span>
+              </button>
+              <button type="button" class="conn-mode-btn" data-mode="sim" id="modeSimBtn">
+                <i class="fa-solid fa-gamepad"></i>
+                <span>Simulation Mode</span>
+              </button>
+            </div>
+
+            <!-- Local Python AI Bridge Status Banner -->
+            <div id="bridgeStatusBanner" class="bridge-status-banner offline">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span id="bridgeStatusDot" class="confidence-dot" style="background: #f59e0b;"></span>
+                <span id="bridgeStatusText">Checking Python AI Bridge (ws://localhost:8765)...</span>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button type="button" id="refreshBridgeBtn" class="voice-mini-preview-btn" title="Refresh Bridge Connection">
+                  <i class="fa-solid fa-arrows-rotate"></i> Check Bridge
+                </button>
+                <button type="button" id="simToggleBridgeBtn" class="voice-mini-preview-btn" title="Stream Synthetic Gestures via Bridge">
+                  <i class="fa-solid fa-play"></i> Sim Stream
+                </button>
+              </div>
+            </div>
+
+            <!-- COM Port Discovery Bar -->
+            <div class="com-port-bar">
+              <div class="com-select-wrap">
+                <label for="comPortSelect" style="font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); white-space: nowrap;">
+                  <i class="fa-solid fa-plug"></i> Serial Port:
+                </label>
+                <select id="comPortSelect" class="com-port-select">
+                  <option value="">Scanning COM ports...</option>
+                </select>
+                <button type="button" id="refreshPortsBtn" class="cyber-btn secondary" style="padding: 6px 12px; font-size: 0.8rem;" title="Scan available USB / COM ports">
+                  <i class="fa-solid fa-arrows-rotate"></i>
+                </button>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <label for="baudRateSelect" style="font-size: 0.82rem; font-weight: 700; color: var(--text-secondary);">Baud:</label>
+                <select id="baudRateSelect" class="com-port-select" style="min-width: 90px;">
+                  <option value="115200" selected>115200</option>
+                  <option value="9600">9600</option>
+                </select>
+              </div>
+
+              <!-- Main Primary Connect Action Button -->
+              <button type="button" id="hwPrimaryConnectBtn" class="cyber-btn primary-glow" style="min-width: 170px;">
+                <i class="fa-solid fa-link"></i>
+                <span id="hwConnectBtnText">CONNECT DEVICE</span>
+              </button>
+            </div>
+
+            <!-- Telemetry Diagnostics HUD Bar -->
+            <div class="telemetry-hud-grid">
+              <div class="telemetry-hud-card">
+                <small>Sampling Rate</small>
+                <strong id="hudSamplingHz">0.0 Hz</strong>
+              </div>
+              <div class="telemetry-hud-card">
+                <small>Latency</small>
+                <strong id="hudLatencyMs">&lt; 8 ms</strong>
+              </div>
+              <div class="telemetry-hud-card">
+                <small>Packets</small>
+                <strong id="hudPacketCount">0</strong>
+              </div>
+              <div class="telemetry-hud-card">
+                <small>Random Forest</small>
+                <strong id="hudModelStatus" style="color: var(--success-green);">31 Classes</strong>
+              </div>
+            </div>
+
+            <!-- Hardware Pinout Specs -->
+            <div class="hardware-specs-chip" style="margin-top: 14px;">
+              <i class="fa-solid fa-circle-info" style="color: var(--primary-cyan);"></i>
+              <strong>Hardware Architecture:</strong> ESP32-S3 SuperMini (Xtensa 32-bit LX7 @ 240 MHz) • 115200 Baud Serial Telemetry • 5-Channel High-Precision Flex Matrix (ADC1: GPIO 1-5) • MPU6050 6-Axis Motion Sensor (I2C: GPIO 8/9).
+            </div>
+
+            <!-- Diagnostic Recovery Guidance (Collapsible / Visible) -->
+            <div class="diagnostic-guidance-card">
+              <h4>
+                <i class="fa-solid fa-screwdriver-wrench glow-icon"></i>
+                <span>Diagnostic & Hardware Recovery Guidance</span>
+              </h4>
+              <ul class="diagnostic-guidance-steps">
+                <li class="diagnostic-step">
+                  <div class="diagnostic-step-num">1</div>
+                  <div><strong>Verify Port:</strong> Confirm ESP32 is recognized in Device Manager under Ports (COM & LPT).</div>
+                </li>
+                <li class="diagnostic-step">
+                  <div class="diagnostic-step-num">2</div>
+                  <div><strong>Start AI Bridge:</strong> Double-click <code>start_ai_bridge.bat</code> in project root to launch WebSocket bridge.</div>
+                </li>
+                <li class="diagnostic-step">
+                  <div class="diagnostic-step-num">3</div>
+                  <div><strong>Auto-Calibrate:</strong> Keep hand flat for 2 seconds to establish baseline ADC offsets before flexing.</div>
+                </li>
+                <li class="diagnostic-step">
+                  <div class="diagnostic-step-num">4</div>
+                  <div><strong>Baud Check:</strong> Ensure firmware serial speed matches <code>115200 baud</code> with newline termination.</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 2. Dual Telemetry Row with Interactive Flip Cards -->
+          <div class="dashboard-telemetry-row">
+            <!-- Flex Sensor Bars (Flip Card) -->
+            <div class="flip-card-container" id="flexFlipCard">
+              <div class="flip-card-inner">
+                <!-- Front Side -->
+                <div class="flip-card-front cyber-card">
+                  <div class="card-header">
+                    <h3>
+                      <i class="fa-solid fa-chart-simple glow-icon"></i>
+                      <span data-i18n="flex_card_title">5 Flex Sensors Telemetry (ADC1 Matrix)</span>
+                    </h3>
+                    <button type="button" class="flip-toggle-btn" onclick="toggleCardFlip(this)" title="Flip to Pinouts & Calibration">
+                      <i class="fa-solid fa-arrows-rotate"></i> <span>Circuit Specs</span>
+                    </button>
+                  </div>
+
+                  <div class="flex-telemetry-container">
+                    <div class="sensor-row">
+                      <span class="sensor-label"><i class="fa-solid fa-thumbs-up"></i> 1. Thumb</span>
+                      <div class="progress-bg"><div id="bar-0" class="progress-fill" style="width: 0%;"></div></div>
+                      <span id="val-0" class="sensor-val">0% (1)</span>
+                    </div>
+                    <div class="sensor-row">
+                      <span class="sensor-label"><i class="fa-solid fa-hand-pointer"></i> 2. Index</span>
+                      <div class="progress-bg"><div id="bar-1" class="progress-fill" style="width: 28%;"></div></div>
+                      <span id="val-1" class="sensor-val">28% (71)</span>
+                    </div>
+                    <div class="sensor-row">
+                      <span class="sensor-label"><i class="fa-solid fa-hand"></i> 3. Middle</span>
+                      <div class="progress-bg"><div id="bar-2" class="progress-fill" style="width: 34%;"></div></div>
+                      <span id="val-2" class="sensor-val">34% (86)</span>
+                    </div>
+                    <div class="sensor-row">
+                      <span class="sensor-label"><i class="fa-solid fa-hand"></i> 4. Ring</span>
+                      <div class="progress-bg"><div id="bar-3" class="progress-fill" style="width: 67%;"></div></div>
+                      <span id="val-3" class="sensor-val">67% (171)</span>
+                    </div>
+                    <div class="sensor-row">
+                      <span class="sensor-label"><i class="fa-solid fa-hand-sparkles"></i> 5. Pinky</span>
+                      <div class="progress-bg"><div id="bar-4" class="progress-fill" style="width: 100%;"></div></div>
+                      <span id="val-4" class="sensor-val">100% (265)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Back Side: Pinout & Calibration Details -->
+                <div class="flip-card-back cyber-card">
+                  <div class="card-header">
+                    <h3><i class="fa-solid fa-microchip glow-icon"></i> <span>ADC1 GPIO & Sensor Calibration</span></h3>
+                    <button type="button" class="flip-toggle-btn" onclick="toggleCardFlip(this)" title="Flip to Live Bars">
+                      <i class="fa-solid fa-arrows-rotate"></i> <span>Live Bars</span>
+                    </button>
+                  </div>
+                  <div class="telemetry-deep-grid">
+                    <div class="telemetry-stat-box">
+                      <small>Thumb Pin</small>
+                      <p>GPIO 1 (ADC1_CH0)</p>
+                    </div>
+                    <div class="telemetry-stat-box">
+                      <small>Index Pin</small>
+                      <p>GPIO 2 (ADC1_CH1)</p>
+                    </div>
+                    <div class="telemetry-stat-box">
+                      <small>Middle Pin</small>
+                      <p>GPIO 3 (ADC1_CH2)</p>
+                    </div>
+                    <div class="telemetry-stat-box">
+                      <small>Ring / Pinky</small>
+                      <p>GPIO 4 / GPIO 5</p>
+                    </div>
+                  </div>
+                  <p style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 12px;">
+                    <strong>Transfer Function:</strong> \(V_{out} = 3.3\text{V} \cdot \frac{R_{flex}}{R_{flex} + 10\text{k}\Omega}\). Dynamic baseline auto-calibration eliminates thermal drift.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- MPU6050 Motion Tracking (Flip Card) -->
+            <div class="flip-card-container" id="imuFlipCard">
+              <div class="flip-card-inner">
+                <!-- Front Side -->
+                <div class="flip-card-front cyber-card">
+                  <div class="card-header">
+                    <h3>
+                      <i class="fa-solid fa-compass glow-icon"></i>
+                      <span data-i18n="imu_card_title">MPU6050 6-Axis Motion Tracking</span>
+                    </h3>
+                    <button type="button" class="flip-toggle-btn" onclick="toggleCardFlip(this)" title="Flip to I2C & Kinematics">
+                      <i class="fa-solid fa-arrows-rotate"></i> <span>I2C Specs</span>
+                    </button>
+                  </div>
+
+                  <div class="imu-grid">
+                    <div class="imu-box">
+                      <h4>ACCELEROMETER (m/s²)</h4>
+                      <div class="imu-values-row">
+                        <div class="imu-val-item"><span class="imu-axis">Ax</span><span id="imuAx" class="imu-num">0.66</span></div>
+                        <div class="imu-val-item"><span class="imu-axis">Ay</span><span id="imuAy" class="imu-num">7.71</span></div>
+                        <div class="imu-val-item"><span class="imu-axis">Az</span><span id="imuAz" class="imu-num">5.90</span></div>
+                      </div>
+                    </div>
+                    <div class="imu-box">
+                      <h4>GYROSCOPE (°/s)</h4>
+                      <div class="imu-values-row">
+                        <div class="imu-val-item"><span class="imu-axis">Gx</span><span id="imuGx" class="imu-num">0.06</span></div>
+                        <div class="imu-val-item"><span class="imu-axis">Gy</span><span id="imuGy" class="imu-num">0.10</span></div>
+                        <div class="imu-val-item"><span class="imu-axis">Gz</span><span id="imuGz" class="imu-num">-0.08</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Back Side: I2C & Kinematic Specs -->
+                <div class="flip-card-back cyber-card">
+                  <div class="card-header">
+                    <h3><i class="fa-solid fa-satellite-dish glow-icon"></i> <span>MPU6050 I2C Kinematic Matrix</span></h3>
+                    <button type="button" class="flip-toggle-btn" onclick="toggleCardFlip(this)" title="Flip to Motion Readings">
+                      <i class="fa-solid fa-arrows-rotate"></i> <span>Readings</span>
+                    </button>
+                  </div>
+                  <div class="telemetry-deep-grid">
+                    <div class="telemetry-stat-box">
+                      <small>I2C Bus Address</small>
+                      <p>0x68 (SDA: GPIO 8, SCL: GPIO 9)</p>
+                    </div>
+                    <div class="telemetry-stat-box">
+                      <small>Accel Scale</small>
+                      <p>±2g (16384 LSB/g)</p>
+                    </div>
+                    <div class="telemetry-stat-box">
+                      <small>Gyro Scale</small>
+                      <p>±250 °/s (131 LSB/°/s)</p>
+                    </div>
+                    <div class="telemetry-stat-box">
+                      <small>Sampling Frequency</small>
+                      <p style="color: var(--primary-cyan); font-weight: 700;">50 Hz Interrupt Driven</p>
+                    </div>
+                  </div>
+                  <p style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 12px;">
+                    Integrates 6-DOF complementary filter computing Pitch, Roll, and Yaw angles for real-time Three.js 3D hand wrist mirroring.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Simulation Mode & Sliders -->
+          <div class="cyber-card">
+            <div class="simulation-bar">
+              <div>
+                <label class="sim-switch">
+                  <input type="checkbox" id="simModeToggle" checked>
+                  <span class="slider-toggle"></span>
+                  <span data-i18n="sim_title">Hardware Simulation Mode</span>
+                </label>
+                <p style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 4px;" data-i18n="sim_desc">
+                  Test telemetry with virtual sliders & real CSV datasets
+                </p>
+              </div>
+
+              <div>
+                <button id="autoTourBtn" class="cyber-btn primary-glow">
+                  <i class="fa-solid fa-play"></i>
+                  <span data-i18n="auto_tour_start">Auto-Cycle Dataset Gestures</span>
+                </button>
+              </div>
+            </div>
+
+            <div id="simSlidersGrid" class="sim-sliders-grid">
+              <div class="sim-slider-box">
+                <label><span>Thumb Flexion</span><span>0 - 100%</span></label>
+                <input type="range" id="simSliderThumb" min="0" max="100" value="0">
+              </div>
+              <div class="sim-slider-box">
+                <label><span>Index Flexion</span><span>0 - 100%</span></label>
+                <input type="range" id="simSliderIndex" min="0" max="100" value="28">
+              </div>
+              <div class="sim-slider-box">
+                <label><span>Middle Flexion</span><span>0 - 100%</span></label>
+                <input type="range" id="simSliderMiddle" min="0" max="100" value="34">
+              </div>
+              <div class="sim-slider-box">
+                <label><span>Ring Flexion</span><span>0 - 100%</span></label>
+                <input type="range" id="simSliderRing" min="0" max="100" value="67">
+              </div>
+              <div class="sim-slider-box">
+                <label><span>Pinky Flexion</span><span>0 - 100%</span></label>
+                <input type="range" id="simSliderPinky" min="0" max="100" value="100">
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Dataset & Random Forest Model Management Card -->
+          <div class="cyber-card">
+            <div class="card-header">
+              <h3>
+                <i class="fa-solid fa-database glow-icon"></i>
+                <span>Authentic Dataset & Random Forest Model Management</span>
+              </h3>
+              <span class="tech-tag">31 CSV CLASSES • 16 FEATURES</span>
+            </div>
+
+            <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 12px;">
+              HandiVoice PRO uses an authenticated Random Forest ensemble trained on 31 signs from <code>HandiVoiceDataSet</code>. 16 features: 5 flex ADC, 5 bend %, 3 accel, 3 gyro.
+            </p>
+
+            <div class="dataset-mgmt-container">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-main);">
+                  <i class="fa-solid fa-list-check" style="color: var(--primary-cyan);"></i> Active Gesture Classes (Click to Inspect / Test Pose):
+                </span>
+                <button type="button" id="retrainModelBtn" class="cyber-btn secondary" style="font-size: 0.78rem; padding: 6px 14px;" title="Retrain Random Forest model on CSV files">
+                  <i class="fa-solid fa-rotate"></i> Retrain AI Model
+                </button>
+              </div>
+
+              <div id="datasetMgmtGrid" class="dataset-mgmt-grid"></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           VIEW 3: TRANSLATION HISTORY & LOGS
+           ====================================================================== -->
+      <section id="view-history" class="view-section">
+        <!-- Translation History Intro Explanation Banner -->
+        <div class="page-intro-banner">
+          <div class="page-intro-icon">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+          </div>
+          <div class="page-intro-body">
+            <div class="page-intro-header">
+              <h2 data-i18n="page_hist_title">Translation History & Neural Logs</h2>
+              <span class="page-intro-pill">AUDIT TRAIL</span>
+            </div>
+            <p class="page-intro-desc" data-i18n="page_hist_desc">
+              Complete historical record of all conversational exchanges: review timestamps, input sensor confidence, recognized gestures, and spoken partner dialogues with one-click replay and CSV export for analysis.
+            </p>
+            <div class="page-intro-actions-chips">
+              <span class="action-chip"><i class="fa-solid fa-table-list"></i> <strong data-i18n="chip_log">Chronological Log:</strong> <span data-i18n="chip_log_sub">Bidirectional Transcripts</span></span>
+              <span class="action-chip"><i class="fa-solid fa-volume-high"></i> <strong data-i18n="chip_replay">Replay:</strong> <span data-i18n="chip_replay_sub">Audio Synthesis on Demand</span></span>
+              <span class="action-chip"><i class="fa-solid fa-file-csv"></i> <strong data-i18n="chip_export">Export:</strong> <span data-i18n="chip_export_sub">CSV Report Generation</span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cyber-card">
+          <div class="card-header">
+            <h3>
+              <i class="fa-solid fa-clock-rotate-left glow-icon"></i>
+              <span data-i18n="hist_title">Translation History & Neural Logs</span>
+            </h3>
+            <span class="tech-tag">LIVE AUDIT LOG</span>
+          </div>
+
+          <div class="history-controls-row">
+            <input type="text" id="historySearchInput" class="history-search-input" placeholder="Search translations..." data-i18n="hist_search" oninput="renderHistoryTable()">
+            
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button class="cyber-btn primary-glow" onclick="exportHistoryCSV()">
+                <i class="fa-solid fa-file-csv"></i>
+                <span data-i18n="hist_export">Export CSV</span>
+              </button>
+              <button class="cyber-btn secondary" onclick="clearHistory()">
+                <i class="fa-solid fa-trash-can"></i>
+                <span data-i18n="hist_clear">Clear History</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="history-table-container">
+            <table class="history-table">
+              <thead>
+                <tr>
+                  <th data-i18n="hist_col_time">Time</th>
+                  <th data-i18n="hist_col_source">Source</th>
+                  <th data-i18n="hist_col_input">Input Data</th>
+                  <th data-i18n="hist_col_output">Translated Text & Audio</th>
+                  <th data-i18n="hist_col_actions">Action</th>
+                </tr>
+              </thead>
+              <tbody id="historyTableBody"></tbody>
+            </table>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ==========================================================================
+         FOOTER BAR: STREAMLINED DESIGN WITH EXACTLY 3 PRIMARY INTERACTIVE BUTTONS
+         1. Translation Hub (Speech & Sign Language)
+         2. Smart Glove Dashboard & ESP32-S3 Bluetooth Connection
+         3. Translation History (Log of all spoken and translated words/phrases)
+         ========================================================================== -->
+    <footer class="app-footer">
+      <nav class="footer-nav">
+        <!-- 1. Translation Hub -->
+        <button class="footer-tab-btn active" data-target="view-translation" id="footerTabTranslate" aria-label="Translation Hub">
+          <div class="tab-icon-wrap"><i class="fa-solid fa-comments"></i></div>
+          <span class="tab-label" data-i18n="footer_translation">Translation Hub</span>
+          <div class="tab-glow-indicator"></div>
+        </button>
+
+        <!-- 2. Glove & Hardware -->
+        <button class="footer-tab-btn" data-target="view-dashboard" id="footerTabDashboard" aria-label="Glove & Hardware">
+          <div class="tab-icon-wrap"><i class="fa-solid fa-microchip"></i></div>
+          <span class="tab-label" data-i18n="footer_dashboard">Glove & Hardware</span>
+          <div class="tab-glow-indicator"></div>
+        </button>
+
+        <!-- 3. Translation History -->
+        <button class="footer-tab-btn" data-target="view-history" id="footerTabHistory" aria-label="Translation History">
+          <div class="tab-icon-wrap"><i class="fa-solid fa-clock-rotate-left"></i></div>
+          <span class="tab-label" data-i18n="footer_history">Translation History</span>
+          <div class="tab-glow-indicator"></div>
+        </button>
+      </nav>
+    </footer>
+  </div><!-- /#deviceAppShell -->
+
+  <!-- ==========================================================================
+       CUTE PERSISTENT COMPANION MASCOT (HANDIBOT)
+       A lively, engaging animated character placed non-intrusively in corner
+       ========================================================================== -->
+  <div id="handiBotMascot" class="handibot-mascot" title="HandiBot Assistant">
+    <div class="mascot-speech-bubble" id="mascotBubble">
+      <span>👋 Hi! I'm HandiBot, your Edge AI companion!</span>
+    </div>
+    <div class="mascot-body-wrapper" onclick="interactWithMascot()">
+      <div class="mascot-antenna"><span class="antenna-light"></span></div>
+      <div class="mascot-head">
+        <img src="icons/handiai-avatar.png" alt="HandiBot Mascot" class="mascot-img">
+        <div class="mascot-sparkle">✨</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       TUTORIAL VIDEO & QUICK MODE MODAL
+       Video Walkthrough explaining how the glove and website work
+       ========================================================================== -->
+  <div id="tutorialVideoModal" class="modal-overlay">
+    <div class="tutorial-modal-card">
+      <button id="closeTutorialModalBtn" class="modal-close-btn" aria-label="Close Tutorial Video">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="tutorial-header">
+        <div class="tech-tag">HANDIVOICE PRO ACADEMY</div>
+        <h3>
+          <i class="fa-solid fa-circle-play glow-icon"></i>
+          <span data-i18n="tutorial_modal_title">Platform & Smart Glove Video Walkthrough</span>
+        </h3>
+        <p data-i18n="tutorial_modal_sub">
+          Learn how the ESP32-S3 glove, 3D hand simulation, and neural speech synthesis communicate seamlessly.
+        </p>
+      </div>
+
+      <!-- Video Screen Simulation Container -->
+      <div class="tutorial-video-wrapper">
+        <div class="tutorial-screen-preview">
+          <!-- Cyber HUD Overlay -->
+          <div class="video-overlay-hud" id="videoOverlayHud">
+            <div class="hud-top">
+              <span class="hud-rec"><span class="rec-dot"></span> 4K INTERACTIVE DEMO</span>
+              <span class="hud-res">ESP32-S3 • 240MHz • 50 FPS</span>
+            </div>
+            <div class="hud-center">
+              <button id="playTutorialVideoBtn" class="video-play-huge-btn" aria-label="Play Tutorial Video">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+            <div class="hud-bottom">
+              <span>HandiVoice PRO Wearable Edge AI Telemetry Demo</span>
+              <span id="videoTimeDisplay">01:45 / 03:20</span>
+            </div>
+          </div>
+          <!-- Demonstration Video Element -->
+          <video id="tutorialVideoPlayer" class="tutorial-html-video" poster="icons/handiai-avatar.png" playsinline loop muted>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-hands-making-gestures-in-a-futuristic-setting-42795-large.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <!-- Sign Language Quick Modes Switcher -->
+      <div class="tutorial-modes-section">
+        <h4 data-i18n="quick_mode_select_title">Select Sign Language Operational Mode:</h4>
+        <div class="quick-mode-pills-grid">
+          <button class="mode-pill-card active" data-mode="phrases">
+            <i class="fa-solid fa-comments"></i>
+            <div>
+              <strong>Phrase Mode (Default)</strong>
+              <small>Translates full gestures directly into sentences & audio</small>
+            </div>
+          </button>
+          <button class="mode-pill-card" data-mode="fingerspelling">
+            <i class="fa-solid fa-hand"></i>
+            <div>
+              <strong>Fingerspelling Mode</strong>
+              <small>Letter-by-letter alphabet spelling with 3D hand poses</small>
+            </div>
+          </button>
+          <button class="mode-pill-card" data-mode="telemetry">
+            <i class="fa-solid fa-wave-square"></i>
+            <div>
+              <strong>Raw Telemetry Stream</strong>
+              <small>Direct ADC1 5-channel and MPU6050 raw sensor diagnostics</small>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3-Step Quick Guide Cards -->
+      <div class="tutorial-steps-grid">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <h5>Connect Glove</h5>
+          <p>Power on ESP32-S3 SuperMini and pair via Web Bluetooth in the Dashboard.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <h5>Perform Signs</h5>
+          <p>Flex sensors and 6-axis IMU feed the real-time Random Forest classification model.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <h5>Speak & 3D Mirror</h5>
+          <p>Audio is spoken in your selected voice profile while the 3D hand mirrors the exact posture.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       USER PROFILE & VOICE CUSTOMIZATION MODAL
+       Login/Register forms are completely removed and handled at entry landing!
+       ========================================================================== -->
+  <div id="profileModalOverlay" class="modal-overlay">
+    <div class="profile-modal-card">
+      <button id="closeProfileModalBtn" class="modal-close-btn" aria-label="Close Profile Window">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="profile-modal-header">
+        <div class="tech-tag">USER PROFILE & SPEECH ENGINE</div>
+        <h3 style="margin-top: 6px;">
+          <i class="fa-solid fa-id-badge glow-icon"></i>
+          <span data-i18n="profile_title">User Profile & Voice Customization Engine</span>
+        </h3>
+      </div>
+
+      <!-- Avatar Upload & Preview -->
+      <div class="avatar-customizer-row">
+        <div class="avatar-preview-wrap">
+          <img src="icons/handiai-avatar.png" alt="Profile Picture" class="avatar-preview-img user-avatar-img">
+        </div>
+        <div class="avatar-upload-info">
+          <h5 data-i18n="avatar_upload_btn">Change Profile Picture</h5>
+          <p>Upload a custom image from your device</p>
+          <input type="file" id="avatarFileInput" accept="image/*" style="display: none;">
+          <button type="button" id="avatarUploadBtn" class="upload-file-btn">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Select Image
+          </button>
+        </div>
+      </div>
+
+      <!-- User Profile Form -->
+      <form id="userProfileForm">
+        <div class="form-group">
+          <label for="profFullName" data-i18n="prof_name">Full Name</label>
+          <input type="text" id="profFullName" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label for="profEmail" data-i18n="prof_email">Email Address</label>
+          <input type="email" id="profEmail" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label for="profPhone" data-i18n="prof_phone">Phone Number</label>
+          <input type="text" id="profPhone" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label for="profNationalId" data-i18n="prof_nid">National / Assistive Medical ID</label>
+          <div class="input-with-action">
+            <input type="text" id="profNationalId" class="form-input" required>
+            <button type="button" id="toggleNidMaskBtn" class="input-action-btn" aria-label="Toggle ID Visibility">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- CENTRAL VOICE PROFILE STUDIO (6 SELECTABLE COMBINATIONS: 2 CATEGORIES × 3 STYLES) -->
+        <div class="central-voice-studio">
+          <div class="voice-section-header">
+            <h4>
+              <i class="fa-solid fa-sliders glow-icon"></i>
+              <span data-i18n="voice_title">Neural Voice Profile Studio</span>
+            </h4>
+            <span class="active-voice-badge" id="currentActiveVoiceBadge">
+              <i class="fa-solid fa-volume-high"></i> <span id="badgeActiveStyleName">Female — Classic</span>
+            </span>
+          </div>
+
+          <p class="voice-section-desc" data-i18n="voice_section_desc">
+            Choose your signature voice category and delivery style. The selected profile applies in real time across all glove translations, gestures, and spoken outputs.
+          </p>
+
+          <!-- Voice Category: Female / Male -->
+          <div class="voice-category-select-wrap">
+            <label class="voice-field-label" data-i18n="voice_category_label">
+              <i class="fa-solid fa-venus-mars"></i> Voice Category:
+            </label>
+            <div class="voice-category-pills">
+              <button type="button" class="voice-cat-pill active" id="voiceCatFemaleBtn" data-gender="female" onclick="selectVoiceCategory('female')">
+                <i class="fa-solid fa-venus"></i> <span data-i18n="voice_gender_female">Female</span>
+              </button>
+              <button type="button" class="voice-cat-pill" id="voiceCatMaleBtn" data-gender="male" onclick="selectVoiceCategory('male')">
+                <i class="fa-solid fa-mars"></i> <span data-i18n="voice_gender_male">Male</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Voice Style: Sharp / Classic / Strong -->
+          <label class="voice-field-label" style="margin-top: 14px;" data-i18n="voice_style_label">
+            <i class="fa-solid fa-wave-square"></i> Voice Delivery Style:
+          </label>
+          <div class="voice-profiles-grid">
+            <!-- 1. SHARP -->
+            <div class="voice-style-card" id="voiceCard-sharp" onclick="selectActiveVoiceStyle('sharp')">
+              <div class="style-card-top">
+                <span class="style-badge sharp" data-i18n="voice_badge_sharp">CRISP & BRIGHT</span>
+                <i class="fa-regular fa-circle-dot style-card-radio" id="voiceRadio-sharp"></i>
+              </div>
+              <h5 class="style-title"><i class="fa-solid fa-bolt" style="color: #f59e0b;"></i> <span data-i18n="voice_style_sharp">Sharp</span></h5>
+              <p class="style-desc" data-i18n="voice_desc_sharp">Clear, crisp, slightly faster delivery with elevated pitch and lively cadence.</p>
+              <div class="style-metrics-row">
+                <span>Pitch: <strong id="sharpPitchVal">1.20x</strong></span>
+                <span>Speed: <strong id="sharpSpeedVal">1.15x</strong></span>
+              </div>
+              <button type="button" class="voice-card-preview-btn" onclick="previewVoiceCombination('sharp', event)">
+                <i class="fa-solid fa-play"></i> <span id="previewLabel-sharp">Preview Sharp</span>
+              </button>
+            </div>
+
+            <!-- 2. CLASSIC -->
+            <div class="voice-style-card active" id="voiceCard-classic" onclick="selectActiveVoiceStyle('classic')">
+              <div class="style-card-top">
+                <span class="style-badge classic" data-i18n="voice_badge_classic">BALANCED</span>
+                <i class="fa-solid fa-circle-check style-card-radio" id="voiceRadio-classic"></i>
+              </div>
+              <h5 class="style-title"><i class="fa-solid fa-music" style="color: var(--primary-cyan);"></i> <span data-i18n="voice_style_classic">Classic</span></h5>
+              <p class="style-desc" data-i18n="voice_desc_classic">Natural, balanced, comfortable everyday conversational delivery.</p>
+              <div class="style-metrics-row">
+                <span>Pitch: <strong id="classicPitchVal">1.00x</strong></span>
+                <span>Speed: <strong id="classicSpeedVal">1.00x</strong></span>
+              </div>
+              <button type="button" class="voice-card-preview-btn" onclick="previewVoiceCombination('classic', event)">
+                <i class="fa-solid fa-play"></i> <span id="previewLabel-classic">Preview Classic</span>
+              </button>
+            </div>
+
+            <!-- 3. STRONG -->
+            <div class="voice-style-card" id="voiceCard-strong" onclick="selectActiveVoiceStyle('strong')">
+              <div class="style-card-top">
+                <span class="style-badge strong" data-i18n="voice_badge_strong">DEEP RESONANCE</span>
+                <i class="fa-regular fa-circle-dot style-card-radio" id="voiceRadio-strong"></i>
+              </div>
+              <h5 class="style-title"><i class="fa-solid fa-shield-halved" style="color: #c084fc;"></i> <span data-i18n="voice_style_strong">Strong</span></h5>
+              <p class="style-desc" data-i18n="voice_desc_strong">Deeper, fuller, confident acoustic resonance with deliberate pace.</p>
+              <div class="style-metrics-row">
+                <span>Pitch: <strong id="strongPitchVal">0.90x</strong></span>
+                <span>Speed: <strong id="strongSpeedVal">0.85x</strong></span>
+              </div>
+              <button type="button" class="voice-card-preview-btn" onclick="previewVoiceCombination('strong', event)">
+                <i class="fa-solid fa-play"></i> <span id="previewLabel-strong">Preview Strong</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Real-Time Voice Hardware & Engine Diagnostic Status -->
+          <div class="system-voice-status-box" id="systemVoiceStatusBox">
+            <i class="fa-solid fa-circle-info" style="color: var(--primary-cyan);"></i>
+            <span id="systemVoiceStatusText">Detecting speech synthesis engine and voices...</span>
+          </div>
+
+          <!-- Speed & Volume Trimmer Sliders -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px;">
+                <span data-i18n="voice_speed">Speed Trimmer:</span>
+                <span id="voiceSpeedVal" style="color: var(--primary-cyan); font-family: Orbitron;">1.00x</span>
+              </div>
+              <input type="range" id="voiceSpeedSlider" min="0.6" max="1.6" step="0.05" value="1.0" style="width: 100%; accent-color: var(--primary-cyan);">
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px;">
+                <span>Volume:</span>
+                <span id="voiceVolumeVal" style="color: var(--primary-cyan); font-family: Orbitron;">100%</span>
+              </div>
+              <input type="range" id="voiceVolumeSlider" min="0" max="100" step="5" value="100" style="width: 100%; accent-color: var(--primary-cyan);">
+            </div>
+          </div>
+
+          <button type="button" id="testCurrentSpeechBtn" class="cyber-btn secondary" style="width: 100%; margin-top: 14px;">
+            <i class="fa-solid fa-volume-high"></i>
+            <span data-i18n="test_voice_btn">Test Active Voice Profile</span>
+          </button>
+        </div>
+
+        <button type="submit" class="cyber-btn primary-glow" style="width: 100%; padding: 14px; margin-top: 16px;">
+          <i class="fa-solid fa-floppy-disk"></i>
+          <span data-i18n="save_profile_btn">Save Profile Changes</span>
+        </button>
+
+        <!-- Prominent Logout / Switch Account Button -->
+        <button type="button" id="logoutActionBtn" class="cyber-btn secondary logout-action-btn" style="width: 100%; padding: 12px; margin-top: 10px; color: var(--danger-red); border-color: rgba(255, 0, 85, 0.4);">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span data-i18n="logout_btn">Log Out / Switch Account</span>
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       INTERACTIVE AI CHATBOT (HANDIAI)
+       Full ML-Integrated Knowledge Base on ESP32-S3, Datasets, and Architecture
+       ========================================================================== -->
+  <div class="ai-chatbot-widget">
+    <div id="aiChatbotToggleBtn" class="ai-floating-btn" title="HandiAI Assistant" aria-label="Open HandiAI Assistant">
+      <img src="icons/handiai-avatar.png" alt="HandiAI Robot Assistant" class="ai-avatar-img">
+      <div class="ai-unread-badge"></div>
+    </div>
+
+    <div id="aiChatWindow" class="ai-chat-window">
+      <div class="ai-chat-header">
+        <div class="ai-header-left">
+          <img src="icons/handiai-avatar.png" alt="HandiAI Avatar" class="ai-header-avatar">
+          <div class="ai-header-info">
+            <h4>HandiAI</h4>
+            <small><span class="online-dot" style="position: static; display: inline-block;"></span> Edge AI Copilot</small>
+          </div>
+        </div>
+        <button id="closeAiChatBtn" style="background: transparent; border: none; color: var(--text-secondary); cursor: pointer; font-size: 1.1rem;">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div id="aiChatMessages" class="ai-chat-messages">
+        <div class="chat-bubble bot">
+          Hello! I am HandiAI, your ML & Embedded Systems AI Copilot. Ask me anything about the ESP32-S3 SuperMini hardware pinout, the 31 Random Forest gesture datasets, 3D hand forward kinematics, or voice profile settings!
+        </div>
+      </div>
+
+      <div class="ai-quick-chips">
+        <button class="ai-chip" data-question="What are the ESP32-S3 GPIO pinouts?">
+          <i class="fa-solid fa-microchip"></i> ESP32 Pinout
+        </button>
+        <button class="ai-chip" data-question="How does the Random Forest model classify gestures?">
+          <i class="fa-solid fa-brain"></i> Edge ML Model
+        </button>
+        <button class="ai-chip" data-question="How does the 3D hand kinematics work?">
+          <i class="fa-solid fa-cubes"></i> 3D Hand Model
+        </button>
+        <button class="ai-chip" data-question="How do I connect via Web Bluetooth?">
+          <i class="fa-brands fa-bluetooth-b"></i> Connect BLE
+        </button>
+      </div>
+
+      <div class="ai-chat-input-bar">
+        <input type="text" id="aiChatInput" class="ai-chat-input" placeholder="Ask about hardware, ML dataset, 3D kinematics..." aria-label="Chat input">
+        <button id="aiSendBtn" class="ai-send-btn" aria-label="Send message">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Real Dataset Telemetry & Scripts -->
+  <script src="dataset-telemetry.js"></script>
+  <script src="hand-3d.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

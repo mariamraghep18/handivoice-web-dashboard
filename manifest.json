@@ -1,0 +1,25 @@
+{
+  "name": "HandiVoice PRO - Edge AI Glove",
+  "short_name": "HandiVoice",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#050811",
+  "theme_color": "#00f0ff",
+  "orientation": "portrait-primary",
+  "description": "Production-ready Edge AI sign language translation glove platform powered by ESP32-S3 SuperMini",
+  "icons": [
+    {
+      "src": "icons/handiai-avatar.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/handiai-avatar.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
+
